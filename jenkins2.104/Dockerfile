@@ -2,6 +2,8 @@ FROM registry.zeasn.local:5000/base/tomcat:7.0.55
 
 WORKDIR /usr/local/
 
+RUN rpm --rebuilddb && yum install bc -y && yum clean all
+
 COPY jenkins.war /usr/local/tomcat7/webapps/
 
 #install maven
