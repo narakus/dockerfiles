@@ -23,7 +23,7 @@ subjectAltName = @alt_names
 [ alt_names ]
 # 此节点[ alt_names ]为新增的，内容如下
 IP.1=192.168.1.204   # 扩展IP(私服所在服务器IP)
-DNS.1=*.advance.net  # 可添加多个扩展域名和IP
+DNS.1=*.youdomain.com  # 可添加多个扩展域名和IP
 ```
 
 
