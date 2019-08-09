@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy-sg-squid
+  labels:
+    app: proxy-sg-squid
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: proxy-sg-squid
+  template:
+    metadata:
+      annotations:
+        "k8s.aliyun.com/eci-with-eip": "true"
+        "k8s.aliyun.com/eip-bandwidth": "100"
+      labels:
+        app: proxy-sg-squid
+    spec:
+      nodeSelector:
+        type: virtual-kubelet
+      tolerations:
+      - key: virtual-kubelet.io/provider
+        operator: Exists
+      containers:
+        - name: proxy-sg-squid
+          image: wzm1990/squid:4
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 13128
+          volumeMounts:
+            - mountPath: /var/cache/squid
+              name: squid-cache
+            - mountPath: /var/log/squid
+              name: squid-log
+          resources:
+            requests:
+              memory: "300M"
+              cpu: "30m"
+            limits:
+              memory: "500M"
+              cpu: "50m"
+      volumes:
+        - name: squid-cache
+          emptyDir: {}
+        - name: squid-log
+          emptyDir: {}
