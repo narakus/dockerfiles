@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: lb-proxy-sg-squid
+spec:
+  selector:
+    app: proxy-sg-squid
+  ports:
+    - protocol: TCP
+      port: 13128
+      targetPort: 13128
+  selector:
+    app: proxy-sg-squid
+  type: LoadBalancer
